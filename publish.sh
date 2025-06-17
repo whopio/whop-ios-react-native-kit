@@ -63,6 +63,7 @@ gh release create "$version" "WhopReactNativeKit-Debug.xcframework.zip" "WhopRea
   --title "WhopReactNativeKit $version" \
   --notes "$release_notes"
 
-echo "Done!"
-echo "You can verify the release using this command: "
-echo "swift package resolve --package-url https://github.com/whopio/whop-ios-react-native-kit.git --revision $version"
+echo ""
+echo ""
+echo " ✔︎ Done! ✔︎ "
+echo ""
