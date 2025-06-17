@@ -7,7 +7,7 @@ root=$(pwd)
 rm -rf ./react-native
 mkdir -p ./react-native
 cd ./react-native
-npx @react-native-community/cli init WhopReactNativeKit --version 0.80.0 --skip-git-init
+npx @react-native-community/cli init WhopReactNativeKit --version 0.80.0 --skip-git-init --install-pods false
 cd ./WhopReactNativeKit
 npm install \
     react-native-safe-area-context@5.4.1 \
@@ -25,11 +25,12 @@ cp -r ./WhopReactNativeKit/* ./react-native/WhopReactNativeKit/ios/
 cd ./react-native/WhopReactNativeKit/ios
 pod install
 ./build.sh
-xed .
 
-# Zip the output
+cd output
+ditto -c -k --sequesterRsrc --keepParent "WhopReactNativeKit-Debug.xcframework" "WhopReactNativeKit-Debug.xcframework.zip"
+ditto -c -k --sequesterRsrc --keepParent "WhopReactNativeKit-Release.xcframework" "WhopReactNativeKit-Release.xcframework.zip"
 
-# rm -rf ../whop-swift/LocalFrameworks/WhopReactNativeKit/WhopReactNativeKit-Debug.xcframework
-# rm -rf ../whop-swift/LocalFrameworks/WhopReactNativeKit/WhopReactNativeKit-Release.xcframework
-# cp -r ./react-native/WhopReactNativeKit/ios/output/WhopReactNativeKit-Debug.xcframework ../whop-swift/LocalFrameworks/WhopReactNativeKit/WhopReactNativeKit-Debug.xcframework
-# cp -r ./react-native/WhopReactNativeKit/ios/output/WhopReactNativeKit-Release.xcframework ../whop-swift/LocalFrameworks/WhopReactNativeKit/WhopReactNativeKit-Release.xcframework
+cd $root
+
+mv ./react-native/WhopReactNativeKit/ios/output/WhopReactNativeKit-Debug.xcframework.zip ./WhopReactNativeKit-Debug.xcframework.zip
+mv ./react-native/WhopReactNativeKit/ios/output/WhopReactNativeKit-Release.xcframework.zip ./WhopReactNativeKit-Release.xcframework.zip

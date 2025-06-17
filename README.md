@@ -6,7 +6,6 @@ Bundle react native and common external deps and compile into a XCFramework that
 
 ## How to use
 
-1. Update the `setup.sh` script with a new native "npm" package / new react native version
-2. Run the setup script.
-3. Create a new github release, and a tag for the branch
-4. Update the Package.swift file to point to the artifacts uploaded for the github release.
+1. Update the `setup.sh` script with a new native "npm" package / new react native version or any changes you want to make
+2. Run the `./setup.sh` script. This will build the xc framework and prepare it for release.
+3. Run the `./publish.sh` script. This will publish a new version to github. 

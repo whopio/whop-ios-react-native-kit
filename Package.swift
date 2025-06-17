@@ -21,12 +21,12 @@ let package = Package(
     .binaryTarget(
       name: "WhopReactNativeKit-Debug",
       url:
-        "https://github.com/wafflestudio/ios-rn-prebuilt/releases/download/0.23.0/WhopReactNativeKit-Debug.xcframework.zip",
-      checksum: "a503b02d84e776185e2af827b9283fa2a1bb61e4f3971c25c1d8a9243acbdf07"),
+        "https://github.com/whopio/whop-ios-react-native-kit/releases/download/$version/WhopReactNativeKit-Release.xcframework.zip",
+      checksum: "ff2342fe234fdaf2ea34fd2a5ef123da4f2ea43df23ea"),
     .binaryTarget(
       name: "WhopReactNativeKit-Release",
       url:
-        "https://github.com/wafflestudio/ios-rn-prebuilt/releases/download/0.23.0/WhopReactNativeKit-Release.xcframework.zip",
-      checksum: "41e5deb537d41e609e0d4c841ac50f807927abccf72d85424434d05a3bf6ccea"),
+        "https://github.com/whopio/whop-ios-react-native-kit/releases/download/$version/WhopReactNativeKit-Release.xcframework.zip",
+      checksum: "helloworld"),
   ]
 )

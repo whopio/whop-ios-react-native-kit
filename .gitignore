@@ -2,3 +2,5 @@ react-native
 **/.DS_Store
 **/xcuserdata
 .build/**
+WhopReactNativeKit-Debug.xcframework.zip
+WhopReactNativeKit-Release.xcframework.zip
