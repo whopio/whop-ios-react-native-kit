@@ -1,6 +1,6 @@
 import Combine
 import Foundation
-@_exported import React
+@_implementationOnly import React
 
 @objc(RNEventEmitter)
 class RNEventEmitter: RCTEventEmitter {
