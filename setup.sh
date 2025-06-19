@@ -16,6 +16,8 @@ npm install \
     react-native-reanimated@3.18.0 \
     @react-native-picker/picker@2.11.0 \
     react-native-svg@15.12.0 \
+    @react-native-camera-roll/camera-roll@7.10.0 \
+    react-native-sensors@7.3.6 \
     @react-native-async-storage/async-storage@2.2.0 --save-exact
 
 cd $root
