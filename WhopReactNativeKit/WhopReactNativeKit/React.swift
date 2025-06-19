@@ -1,5 +1,5 @@
 import Foundation
-import React
+@_implementationOnly import React
 import UIKit
 
 /// Creates and returns a UIView configured with a React Native application.
@@ -37,9 +37,8 @@ private struct BridgeBox {
 /// Central place that hands you a ready-to-use bridge
 /// for the given bundle URL. Re-uses the same instance
 /// on subsequent calls.
-public final class ReactBridgeManager {
-
-  public static let shared = ReactBridgeManager()
+final class ReactBridgeManager {
+  static let shared = ReactBridgeManager()
   private init() {}
 
   private var boxes: [URL: BridgeBox] = [:]  // strong refs!
@@ -79,16 +78,29 @@ public struct RNCrashInfo: Sendable {
 }
 
 /// Single place React Native tells us about hard JS failures.
-public final class ReactCrashHandler: NSObject, RCTExceptionsManagerDelegate {
+public final class ReactCrashHandler {
   /// Notification the SwiftUI layer will observe
   public static let didCrash = Notification.Name("RNDidFatalCrash")
 
   public static let shared = ReactCrashHandler()
-  override public init() {}
+
+  let privateCrashHandler = PrivateReactCrashHandler()
+
+  init() {}
 
   // MARK: – Wire up  *once*  during app launch
 
   public func install() {
+    privateCrashHandler.install()
+  }
+}
+
+final class PrivateReactCrashHandler: NSObject, RCTExceptionsManagerDelegate {
+  override init() {}
+
+  // MARK: – Wire up  *once*  during app launch
+
+  func install() {
     // JS bundle failed to load                                       ▼▼▼▼▼
     NotificationCenter.default.addObserver(
       self, selector: #selector(bundleFailed(_:)),
@@ -109,7 +121,7 @@ public final class ReactCrashHandler: NSObject, RCTExceptionsManagerDelegate {
 
   // MARK: – RCTExceptionsManagerDelegate (JS runtime -> native)
 
-  public func handleSoftJSException(
+  func handleSoftJSException(
     withMessage message: String?, stack: [Any]?, exceptionId: NSNumber, extraDataAsJSON: String?
   ) {
     let stackStrings = stack?.compactMap { "\($0)" } ?? []
@@ -118,7 +130,7 @@ public final class ReactCrashHandler: NSObject, RCTExceptionsManagerDelegate {
         message: message ?? "Soft JS Exception", stack: stackStrings, nativeError: nil))
   }
 
-  public func handleFatalJSException(
+  func handleFatalJSException(
     withMessage message: String?, stack: [Any]?, exceptionId: NSNumber, extraDataAsJSON: String?
   ) {
     let stackStrings = stack?.compactMap { "\($0)" } ?? []
@@ -137,24 +149,24 @@ public final class ReactCrashHandler: NSObject, RCTExceptionsManagerDelegate {
   }
 
   private func post(info: RNCrashInfo) {
-    NotificationCenter.default.post(name: Self.didCrash, object: info)
+    NotificationCenter.default.post(name: ReactCrashHandler.didCrash, object: info)
   }
 }
 
 /// The ReactHost is a class that implements the RCTBridgeDelegate protocol.
 /// It is used to provide the source URL for the bridge and the extra modules for the bridge.
-public final class ReactHost: NSObject, RCTBridgeDelegate {
-  public let bundleURL: URL
+final class ReactHost: NSObject, RCTBridgeDelegate {
+  let bundleURL: URL
 
-  public init(bundleURL: URL) {
+  init(bundleURL: URL) {
     self.bundleURL = bundleURL
   }
 
-  public func sourceURL(for bridge: RCTBridge) -> URL? {
+  func sourceURL(for bridge: RCTBridge) -> URL? {
     bundleURL
   }
 
-  public func extraModules(for bridge: RCTBridge) -> [any RCTBridgeModule] {
-    [RCTExceptionsManager(delegate: ReactCrashHandler.shared)]
+  func extraModules(for bridge: RCTBridge) -> [any RCTBridgeModule] {
+    [RCTExceptionsManager(delegate: ReactCrashHandler.shared.privateCrashHandler)]
   }
 }
