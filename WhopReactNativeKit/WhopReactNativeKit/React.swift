@@ -37,8 +37,8 @@ private struct BridgeBox {
 /// Central place that hands you a ready-to-use bridge
 /// for the given bundle URL. Re-uses the same instance
 /// on subsequent calls.
-final class ReactBridgeManager {
-  static let shared = ReactBridgeManager()
+public final class ReactBridgeManager {
+  public static let shared = ReactBridgeManager()
   private init() {}
 
   private var boxes: [URL: BridgeBox] = [:]  // strong refs!
@@ -57,8 +57,13 @@ final class ReactBridgeManager {
     return bridge
   }
 
+  /// Preload / warm up a JS bridge for this bundle URL.
+  public func preloadBridge(for bundleURL: URL) {
+    bridge(for: bundleURL)
+  }
+
   /// Optional: drop a bridge if you need to free memory
-  func invalidate(bundleURL: URL) {
+  public func invalidate(bundleURL: URL) {
     boxes[bundleURL]?.bridge.invalidate()
     boxes[bundleURL] = nil
   }
