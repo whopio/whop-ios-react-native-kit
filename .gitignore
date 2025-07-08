@@ -4,3 +4,4 @@ react-native
 .build/**
 WhopReactNativeKit-Debug.xcframework.zip
 WhopReactNativeKit-Release.xcframework.zip
+hermes.xcframework.zip

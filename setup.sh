@@ -31,8 +31,10 @@ pod install
 cd output
 ditto -c -k --sequesterRsrc --keepParent "WhopReactNativeKit-Debug.xcframework" "WhopReactNativeKit-Debug.xcframework.zip"
 ditto -c -k --sequesterRsrc --keepParent "WhopReactNativeKit-Release.xcframework" "WhopReactNativeKit-Release.xcframework.zip"
+ditto -c -k --sequesterRsrc --keepParent "hermes.xcframework" "hermes.xcframework.zip"
 
 cd $root
 
 mv ./react-native/WhopReactNativeKit/ios/output/WhopReactNativeKit-Debug.xcframework.zip ./WhopReactNativeKit-Debug.xcframework.zip
 mv ./react-native/WhopReactNativeKit/ios/output/WhopReactNativeKit-Release.xcframework.zip ./WhopReactNativeKit-Release.xcframework.zip
+mv ./react-native/WhopReactNativeKit/ios/output/hermes.xcframework.zip ./hermes.xcframework.zip
