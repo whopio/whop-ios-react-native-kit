@@ -1,14 +1,20 @@
 import Foundation
+internal import RCTRuntime
 internal import React
 internal import React_RCTAppDelegate
 import UIKit
 
 @MainActor
 public class ReactKit {
-  private var factories: [FactoryKey: RCTRootViewFactory] = [:]
+  private var apps: [AppKey: AppInstance] = [:]
   public static let shared = ReactKit()
 
-  public struct FactoryKey: Hashable {
+  private struct AppInstance {
+    let rootViewFactory: RCTRootViewFactory
+    let jsRuntimeFactoryDelegate: HermesJsRuntimeConfigurator
+  }
+
+  public struct AppKey: Hashable {
     public let id: String
 
     public init(id: String) {
@@ -16,7 +22,7 @@ public class ReactKit {
     }
   }
 
-  public struct FactoryConfig {
+  public struct AppConfig {
     public let bundleUrl: URL
     public let customizeRootView: ((UIView) -> Void)?
 
@@ -88,10 +94,10 @@ public class ReactKit {
 
   private init() {}
 
-  private func getOrInitFactory(forKey key: FactoryKey, withConfig config: FactoryConfig)
-    -> RCTRootViewFactory
+  private func getOrInitApp(forKey key: AppKey, withConfig config: AppConfig)
+    -> AppInstance
   {
-    if let factory = factories[key] {
+    if let factory = apps[key] {
       return factory
     }
 
@@ -99,6 +105,9 @@ public class ReactKit {
       bundleURL: config.bundleUrl,
       newArchEnabled: true
     )
+
+    let jsConfigurator = HermesJsRuntimeConfigurator(key: key)
+    rctConfig.jsRuntimeConfiguratorDelegate = jsConfigurator
 
     if let customizeRootView = config.customizeRootView {
       rctConfig.customizeRootView = customizeRootView
@@ -108,27 +117,29 @@ public class ReactKit {
 
     logger.info("Creating RCTRootViewFactory for key '\(key.id)'. Config: \(config.bundleUrl)")
 
-    factories[key] = factory
-    return factory
+    let app = AppInstance(rootViewFactory: factory, jsRuntimeFactoryDelegate: jsConfigurator)
+
+    apps[key] = app
+    return app
   }
 
-  public func hasFactory(forKey key: FactoryKey) -> Bool {
-    return factories[key] != nil
+  public func hasFactory(forKey key: AppKey) -> Bool {
+    return apps[key] != nil
   }
 
   /// Ensure that a factory is pre-created.
   /// If a factory already exists, this function does nothing.
-  public func createFactory(forKey key: FactoryKey, withConfig config: FactoryConfig) {
-    _ = getOrInitFactory(forKey: key, withConfig: config)
+  public func createFactory(forKey key: AppKey, withConfig config: AppConfig) {
+    _ = getOrInitApp(forKey: key, withConfig: config)
   }
 
   /// Initialize and start the react runtime and javascript engine.
   /// Make sure to call `initFactory` first with the same `key`.
   /// Returns true if an existing factory was found. Returns false if no factory was found.
-  public func initializeReactHost(forKey key: FactoryKey, launchOptions: [AnyHashable: Any]?)
+  public func initializeReactHost(forKey key: AppKey, launchOptions: [AnyHashable: Any]?)
     -> Bool
   {
-    guard let factory = factories[key] else {
+    guard let app = apps[key] else {
       logger.warning(
         "Failed to initiaize RCTHost for key '\(key.id) because no factory was found. Call `createFactory` first."
       )
@@ -137,14 +148,14 @@ public class ReactKit {
     logger.info(
       "Initializing React Host for key '\(key.id)'. launchOptions: \(String(describing: launchOptions))"
     )
-    factory.initializeReactHost(launchOptions: launchOptions)
+    app.rootViewFactory.initializeReactHost(launchOptions: launchOptions)
     return true
   }
 
   /// Drop the factory for the passed key. This will remove the strong reference
   /// and it should be deallocated upon unloading any views
-  public func removeFactory(forKey key: FactoryKey) {
-    let didExist = factories.removeValue(forKey: key) != nil
+  public func removeFactory(forKey key: AppKey) {
+    let didExist = apps.removeValue(forKey: key) != nil
     Logger.init().info("Removing factory for key '\(key.id)'. Did exist = \(didExist)")
   }
 
@@ -157,14 +168,14 @@ public class ReactKit {
   /// This function will reuse existing factory for the provided key.
   /// If one does not exist, then it will create the factory with the passed `config`.
   public func getView(
-    forKey key: FactoryKey,
-    withConfig config: FactoryConfig,
+    forKey key: AppKey,
+    withConfig config: AppConfig,
     withModuleName moduleName: String,
     initialProperties: [AnyHashable: Any]? = nil,
     launchOptions: [AnyHashable: Any]? = nil
   ) -> UIView {
-    let factory = getOrInitFactory(forKey: key, withConfig: config)
-    let view = factory.view(
+    let app = getOrInitApp(forKey: key, withConfig: config)
+    let view = app.rootViewFactory.view(
       withModuleName: moduleName,
       initialProperties: initialProperties,
       launchOptions: launchOptions
@@ -173,13 +184,13 @@ public class ReactKit {
   }
 
   public func getView(
-    forKey key: FactoryKey,
+    forKey key: AppKey,
     withModuleName moduleName: String,
     initialProperties: [AnyHashable: Any]?,
     launchOptions: [AnyHashable: Any]? = nil
   ) -> UIView? {
-    guard let factory = factories[key] else { return nil }
-    let view = factory.view(
+    guard let app = apps[key] else { return nil }
+    let view = app.rootViewFactory.view(
       withModuleName: moduleName,
       initialProperties: initialProperties,
       launchOptions: launchOptions
@@ -238,5 +249,19 @@ public struct ReactKitError: Error {
 
   init(error: any Error) {
     self.message = error.localizedDescription
+  }
+}
+
+@objc(RCTJSRuntimeConfiguratorProtocol)
+class HermesJsRuntimeConfigurator: NSObject, RCTJSRuntimeConfiguratorProtocol {
+  let key: ReactKit.AppKey
+
+  init(key: ReactKit.AppKey) {
+    self.key = key
+  }
+
+  @objc func createJSRuntimeFactory() -> JSRuntimeFactoryRef {
+    logger.info("Initialized hermes runtime factory for key: \(self.key.id)")
+    return jsrt_create_hermes_factory()
   }
 }
