@@ -8,18 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		CE1D00B82A5DB4C300C94550 /* React.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D00B72A5DB4C300C94550 /* React.swift */; };
-		CEAA84032BEBBACF004908B8 /* RNEventEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA84022BEBBACF004908B8 /* RNEventEmitter.swift */; };
-		CEAA84052BEBBB4E004908B8 /* RNEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAA84042BEBBB4E004908B8 /* RNEventEmitter.m */; };
-		CEAA84072BEBC11C004908B8 /* EventEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA84062BEBC11C004908B8 /* EventEmitter.swift */; };
 		CEF992E12BF2604800F0FFA4 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF992E02BF2604800F0FFA4 /* Logger.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CE1D00AD2A5DB49400C94550 /* WhopReactNativeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WhopReactNativeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE1D00B72A5DB4C300C94550 /* React.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = React.swift; sourceTree = "<group>"; };
-		CEAA84022BEBBACF004908B8 /* RNEventEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNEventEmitter.swift; sourceTree = "<group>"; };
-		CEAA84042BEBBB4E004908B8 /* RNEventEmitter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNEventEmitter.m; sourceTree = "<group>"; };
-		CEAA84062BEBC11C004908B8 /* EventEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventEmitter.swift; sourceTree = "<group>"; };
 		CEF992E02BF2604800F0FFA4 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -54,20 +48,9 @@
 			isa = PBXGroup;
 			children = (
 				CE1D00B72A5DB4C300C94550 /* React.swift */,
-				CEAA84002BEBBABB004908B8 /* EventEmitter */,
 				CEF992E02BF2604800F0FFA4 /* Logger.swift */,
 			);
 			path = WhopReactNativeKit;
-			sourceTree = "<group>";
-		};
-		CEAA84002BEBBABB004908B8 /* EventEmitter */ = {
-			isa = PBXGroup;
-			children = (
-				CEAA84062BEBC11C004908B8 /* EventEmitter.swift */,
-				CEAA84022BEBBACF004908B8 /* RNEventEmitter.swift */,
-				CEAA84042BEBBB4E004908B8 /* RNEventEmitter.m */,
-			);
-			path = EventEmitter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -151,9 +134,6 @@
 			files = (
 				CEF992E12BF2604800F0FFA4 /* Logger.swift in Sources */,
 				CE1D00B82A5DB4C300C94550 /* React.swift in Sources */,
-				CEAA84072BEBC11C004908B8 /* EventEmitter.swift in Sources */,
-				CEAA84052BEBBB4E004908B8 /* RNEventEmitter.m in Sources */,
-				CEAA84032BEBBACF004908B8 /* RNEventEmitter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,6 +291,8 @@
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
+				RCT_FABRIC_ENABLED = 1;
+				RCT_NEW_ARCH_ENABLED = 1;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -349,6 +331,8 @@
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
+				RCT_FABRIC_ENABLED = 1;
+				RCT_NEW_ARCH_ENABLED = 1;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

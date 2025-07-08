@@ -19,11 +19,11 @@ prepare_react_native_project!
 # ```
 # flipper_config = ENV['NO_FLIPPER'] == "1" ? FlipperConfiguration.disabled : FlipperConfiguration.enabled
 
-linkage = ENV['USE_FRAMEWORKS']
-if linkage != nil
-  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
-  use_frameworks! :linkage => linkage.to_sym
-end
+# linkage = ENV['USE_FRAMEWORKS'] # its probably gonna fail to build if you set this to a value.
+# if linkage != nil
+#   Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
+#   use_frameworks! :linkage => linkage.to_sym
+# end
 
 def find_and_replace(dir, findstr, replacestr)
   Dir[dir].each do |name|
@@ -47,8 +47,9 @@ target 'WhopReactNativeKit' do
   use_react_native!(
     :path => config[:reactNativePath],
     # Hermes is now enabled by default. Disable by setting this flag to false.
-    :hermes_enabled => false,
-    :fabric_enabled => flags[:fabric_enabled],
+    :hermes_enabled => true,
+    :fabric_enabled => true,
+    :new_arch_enabled => true,
     # Enables Flipper.
     #
     # Note that if you have use_frameworks! enabled, Flipper will not work and
@@ -93,17 +94,9 @@ target 'WhopReactNativeKit' do
       'Yoga',
       'YogaKit'
     ]
-
-    targets_to_not_build_library_for_distribution = [
-      'VisionCamera',
-    ]
     
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
-        if targets_to_not_build_library_for_distribution.include?(target.name)
-          config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'NO'
-        end
-
         if target.name == "hermes-engine"
           installer.pods_project.files.each do |fileref|
             if fileref.path.end_with? "hermes.xcframework"
