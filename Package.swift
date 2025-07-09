@@ -21,12 +21,12 @@ let package = Package(
     .binaryTarget(
       name: "hermes",
       url:
-        "https://github.com/whopio/whop-ios-react-native-kit/releases/download/0.0.18/hermes.xcframework.zip",
+        "https://github.com/whopio/whop-ios-react-native-kit/releases/download/0.0.19/hermes.xcframework.zip",
       checksum: "76a12f7fc47a53a68fc691c79a3855b2a95c2aadea2c26e0b92c558039263bde"),
     .binaryTarget(
       name: "WhopReactNativeKit",
       url:
-        "https://github.com/whopio/whop-ios-react-native-kit/releases/download/0.0.18/WhopReactNativeKit-Release.xcframework.zip",
-      checksum: "34546e33d93424e549a19c6fb133ad805846dab2625d8621125015c52af3ef2e"),
+        "https://github.com/whopio/whop-ios-react-native-kit/releases/download/0.0.19/WhopReactNativeKit-Release.xcframework.zip",
+      checksum: "e6c5dca140aac8934561020bc43090e9a637607328b951674564bbc63c81d14d"),
   ]
 )

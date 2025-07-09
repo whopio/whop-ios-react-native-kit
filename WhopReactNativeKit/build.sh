@@ -64,7 +64,7 @@ for config in "${configs[@]}"; do
         # This makes the framework really big (200+ MB) but for now i think its ok. 
         # We could also individually add all the headers to the framework, and then the main app can optimize what is included in the final app build.
         baseLibDir="${outputDir}/$sdk/DerivedData/Build/Products/$config-$sdk"
-        libtool -static -o "${outputDir}/$sdk/lib${scheme}.a" "${baseLibDir}"/*.a "${baseLibDir}"/*/*.a
+        libtool -static -o "${outputDir}/$sdk/lib${scheme}.a" "${baseLibDir}"/lib${scheme}.a "${baseLibDir}"/*/*.a
 
         # now we copy the swiftmodules to the output directory
         cp -r "${baseLibDir}/${scheme}.swiftmodule" "${outputDir}/$sdk"
