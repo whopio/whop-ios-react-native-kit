@@ -12,7 +12,7 @@ ENV_CONFIG=$CONFIGURATION
 # Arrays of configurations and SDKs
 declare -a configs
 if [ -z "$ENV_CONFIG" ]; then
-    configs=("Debug" "Release")
+    configs=("Release")
 else
     configs=("$ENV_CONFIG")
 fi
