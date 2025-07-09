@@ -28,6 +28,8 @@ cd ./react-native/WhopReactNativeKit/ios
 pod install
 ./build.sh
 
+echo "  ✔︎  Finished building the framework"
+
 cd output
 # ditto -c -k --sequesterRsrc --keepParent "WhopReactNativeKit-Debug.xcframework" "WhopReactNativeKit-Debug.xcframework.zip"
 ditto -c -k --sequesterRsrc --keepParent "WhopReactNativeKit-Release.xcframework" "WhopReactNativeKit-Release.xcframework.zip"
@@ -36,8 +38,12 @@ ditto -c -k --sequesterRsrc --keepParent "WhopReactNativeKit-Release.xcframework
 # This MUST be the release version of the darwin-hermes-RELEASE. Then find the universal xcframework in the Library/Frameworks... 
 # and then run this ditto command and copy the zip to the root of this project.
 
+echo "  ✔︎  Finished zipping the framework"
+
 cd $root
 
 # mv ./react-native/WhopReactNativeKit/ios/output/WhopReactNativeKit-Debug.xcframework.zip ./WhopReactNativeKit-Debug.xcframework.zip
 mv ./react-native/WhopReactNativeKit/ios/output/WhopReactNativeKit-Release.xcframework.zip ./WhopReactNativeKit-Release.xcframework.zip
 # mv ./react-native/WhopReactNativeKit/ios/output/hermes.xcframework.zip ./hermes.xcframework.zip
+
+echo "  ✔︎✔︎✔︎  Success!  ✔︎✔︎✔︎"

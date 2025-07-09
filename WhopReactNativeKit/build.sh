@@ -36,22 +36,42 @@ for config in "${configs[@]}"; do
         platform=$([ "$sdk" == "iphonesimulator" ] && echo "iOS Simulator" || echo "iOS")
 
         # Run xcodebuild command for current configuration and SDK
+        # xcodebuild \
+        #     -workspace $workspace \
+        #     -scheme $scheme \
+        #     -destination="generic/platform=${platform}" \
+        #     -configuration $config \
+        #     -sdk $sdk \
+        #     -archivePath "${outputDir}/${config}/${sdk}/${scheme}.xcarchive" \
+        #     archive \
+        #     SKIP_INSTALL=NO \
+        #     BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+        #     EXCLUDED_ARCHS=i386
+
+        mkdir -p "$outputDir/$sdk"
+
         xcodebuild \
-            -workspace $workspace \
-            -scheme $scheme \
-            -destination="generic/platform=${platform}" \
-            -configuration $config \
-            -sdk $sdk \
-            -archivePath "${outputDir}/${config}/${sdk}/${scheme}.xcarchive" \
-            archive \
-            SKIP_INSTALL=NO \
+            -workspace "$workspace" \
+            -scheme "$scheme" \
+            -configuration "$config" \
+            -sdk "$sdk" \
             BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
-            EXCLUDED_ARCHS=i386
+            SKIP_INSTALL=NO \
+            -derivedDataPath "$outputDir/$sdk/DerivedData" \
+            clean build
     done
 
     # Create xcframework
+    # xcodebuild -create-xcframework \
+    #     -framework "${outputDir}/${config}/iphoneos/${scheme}.xcarchive/Products/Library/Frameworks/${scheme}.framework" \
+    #     -framework "${outputDir}/${config}/iphonesimulator/${scheme}.xcarchive/Products/Library/Frameworks/${scheme}.framework" \
+    #     -output "${outputDir}/${scheme}-${config}.xcframework"
+
+    # Create xcframework from *static* libraries (+ headers for each slice)
     xcodebuild -create-xcframework \
-        -framework "${outputDir}/${config}/iphoneos/${scheme}.xcarchive/Products/Library/Frameworks/${scheme}.framework" \
-        -framework "${outputDir}/${config}/iphonesimulator/${scheme}.xcarchive/Products/Library/Frameworks/${scheme}.framework" \
+        -library "${outputDir}/iphoneos/DerivedData/Build/Products/$config-iphoneos/lib${scheme}.a" \
+        -headers "${outputDir}/iphoneos/DerivedData/Build/Products/$config-iphoneos/${scheme}.swiftmodule" \
+        -library "${outputDir}/iphonesimulator/DerivedData/Build/Products/$config-iphonesimulator/lib${scheme}.a" \
+        -headers "${outputDir}/iphonesimulator/DerivedData/Build/Products/$config-iphonesimulator/${scheme}.swiftmodule" \
         -output "${outputDir}/${scheme}-${config}.xcframework"
 done
