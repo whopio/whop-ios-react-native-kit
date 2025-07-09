@@ -59,6 +59,12 @@ for config in "${configs[@]}"; do
             SKIP_INSTALL=NO \
             -derivedDataPath "$outputDir/$sdk/DerivedData" \
             clean build
+
+        # Now we need to use libtool to create a single static library from all the static libraries in the output directory
+        # This makes the framework really big (200+ MB) but for now i think its ok. 
+        # We could also individually add all the headers to the framework, and then the main app can optimize what is included in the final app build.
+        baseLibDir="${outputDir}/$sdk/DerivedData/Build/Products/$config-$sdk"
+        libtool -static -o "${outputDir}/$sdk/lib${scheme}.a" "${baseLibDir}"/*.a "${baseLibDir}"/*/*.a
     done
 
     # Create xcframework
@@ -69,9 +75,9 @@ for config in "${configs[@]}"; do
 
     # Create xcframework from *static* libraries (+ headers for each slice)
     xcodebuild -create-xcframework \
-        -library "${outputDir}/iphoneos/DerivedData/Build/Products/$config-iphoneos/lib${scheme}.a" \
+        -library "${outputDir}/iphoneos/lib${scheme}.a" \
         -headers "${outputDir}/iphoneos/DerivedData/Build/Products/$config-iphoneos/${scheme}.swiftmodule" \
-        -library "${outputDir}/iphonesimulator/DerivedData/Build/Products/$config-iphonesimulator/lib${scheme}.a" \
+        -library "${outputDir}/iphonesimulator/lib${scheme}.a" \
         -headers "${outputDir}/iphonesimulator/DerivedData/Build/Products/$config-iphonesimulator/${scheme}.swiftmodule" \
         -output "${outputDir}/${scheme}-${config}.xcframework"
 done
