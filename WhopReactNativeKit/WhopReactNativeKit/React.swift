@@ -10,8 +10,12 @@ public class ReactKit {
   public static let shared = ReactKit()
 
   private struct AppInstance {
-    let rootViewFactory: RCTRootViewFactory
-    let jsRuntimeFactoryDelegate: HermesJsRuntimeConfigurator
+    let factory: RCTReactNativeFactory
+    let delegate: ReactKitFactoryDelegate
+
+    var rootViewFactory: RCTRootViewFactory {
+      factory.rootViewFactory
+    }
   }
 
   public struct AppKey: Hashable {
@@ -25,13 +29,16 @@ public class ReactKit {
   public struct AppConfig {
     public let bundleUrl: URL
     public let customizeRootView: ((UIView) -> Void)?
+    public let colorSpace: ColorSpace
 
     public init(
       bundleUrl: URL,
-      customiseRootView: ((UIView) -> Void)? = nil
+      customiseRootView: ((UIView) -> Void)? = nil,
+      colorSpace: ColorSpace = .srgb
     ) {
       self.bundleUrl = bundleUrl
       self.customizeRootView = customiseRootView
+      self.colorSpace = colorSpace
     }
   }
 
@@ -101,23 +108,12 @@ public class ReactKit {
       return factory
     }
 
-    let rctConfig = RCTRootViewFactoryConfiguration(
-      bundleURL: config.bundleUrl,
-      newArchEnabled: true
-    )
-
-    let jsConfigurator = HermesJsRuntimeConfigurator(key: key)
-    rctConfig.jsRuntimeConfiguratorDelegate = jsConfigurator
-
-    if let customizeRootView = config.customizeRootView {
-      rctConfig.customizeRootView = customizeRootView
-    }
-
-    let factory = RCTRootViewFactory(configuration: rctConfig)
+    let delegate = ReactKitFactoryDelegate(withKey: key, withConfig: config)
+    let factory = RCTReactNativeFactory(delegate: delegate, releaseLevel: .Stable)
 
     logger.info("Creating RCTRootViewFactory for key '\(key.id)'. Config: \(config.bundleUrl)")
 
-    let app = AppInstance(rootViewFactory: factory, jsRuntimeFactoryDelegate: jsConfigurator)
+    let app = AppInstance(factory: factory, delegate: delegate)
 
     apps[key] = app
     return app
@@ -252,16 +248,56 @@ public struct ReactKitError: Error {
   }
 }
 
-@objc(RCTJSRuntimeConfiguratorProtocol)
-class HermesJsRuntimeConfigurator: NSObject, RCTJSRuntimeConfiguratorProtocol {
+@objc(RCTReactNativeFactoryDelegate)
+class ReactKitFactoryDelegate: RCTDefaultReactNativeFactoryDelegate {
   let key: ReactKit.AppKey
+  let config: ReactKit.AppConfig
 
-  init(key: ReactKit.AppKey) {
+  init(withKey key: ReactKit.AppKey, withConfig config: ReactKit.AppConfig) {
+    logger.info(
+      "Constructed ReactKitFactoryDelegate for key: \(key.id) with bundleUrl: \(config.bundleUrl)")
     self.key = key
+    self.config = config
   }
 
-  @objc func createJSRuntimeFactory() -> JSRuntimeFactoryRef {
+  override func bundleURL() -> URL? {
+    config.bundleUrl
+  }
+
+  override func sourceURL(for bridge: RCTBridge) -> URL? {
+    config.bundleUrl
+  }
+
+  override func defaultColorSpace() -> RCTColorSpace {
+    config.colorSpace.rctColorSpace
+  }
+
+  override func customize(_ rootView: RCTRootView) {
+    if let customize = config.customizeRootView {
+      customize(rootView)
+    } else {
+      super.customize(rootView)
+    }
+  }
+
+  override func createJSRuntimeFactory() -> JSRuntimeFactoryRef {
     logger.info("Initialized hermes runtime factory for key: \(self.key.id)")
     return jsrt_create_hermes_factory()
+  }
+
+  override func turboModuleEnabled() -> Bool {
+    true
+  }
+
+  override func fabricEnabled() -> Bool {
+    true
+  }
+
+  override func bridgelessEnabled() -> Bool {
+    true
+  }
+
+  override func newArchEnabled() -> Bool {
+    true
   }
 }
