@@ -26,7 +26,7 @@ echo "checksum: $HERMES_CHECKSUM"
 
 echo "Updating the Package.swift file..."
 sed -E -i '' \
-    "/name: \"WhopReactNativeKit-Release\"/,/checksum:/ \
+    "/name: \"WhopReactNativeKit\"/,/checksum:/ \
     s/checksum: \"[^\"]*\"/checksum: \"${RELEASE_CHECKSUM}\"/" \
     Package.swift
 
@@ -40,14 +40,6 @@ sed -E -i '' \
 #     s/checksum: \"[^\"]*\"/checksum: \"${DEBUG_CHECKSUM}\"/" \
 #     Package.swift
 
-sed -E -i '' \
-  "/name: \"hermes\"/,/checksum:/ {
-      /url:/ {
-          n
-          s#\"[^\"]*\"#\"${HERMES_URL}\"#
-      }
-  }" Package.swift
-
 # sed -E -i '' \
 #   "/name: \"WhopReactNativeKit-Debug\"/,/checksum:/ {
 #       /url:/ {
@@ -57,10 +49,18 @@ sed -E -i '' \
 #   }" Package.swift
 
 sed -E -i '' \
-  "/name: \"WhopReactNativeKit-Release\"/,/checksum:/ {
+  "/name: \"WhopReactNativeKit\"/,/checksum:/ {
       /url:/ {
           n
           s#\"[^\"]*\"#\"${RELEASE_URL}\"#
+      }
+  }" Package.swift
+
+sed -E -i '' \
+  "/name: \"hermes\"/,/checksum:/ {
+      /url:/ {
+          n
+          s#\"[^\"]*\"#\"${HERMES_URL}\"#
       }
   }" Package.swift
 
