@@ -33,18 +33,18 @@ public class ReactKit {
     public let bundleUrl: URL
     public let customizeRootView: ((UIView) -> Void)?
     public let colorSpace: ColorSpace
-    public let httpClientDelegate: HttpClientConfigurationDelegate?
+    public let requestModifier: ReactKitRequestModifierDelegate?
 
     public init(
       bundleUrl: URL,
       customiseRootView: ((UIView) -> Void)? = nil,
       colorSpace: ColorSpace = .srgb,
-      httpClientDelegate: HttpClientConfigurationDelegate? = nil
+      requestModifier: ReactKitRequestModifierDelegate? = nil
     ) {
       self.bundleUrl = bundleUrl
       self.customizeRootView = customiseRootView
       self.colorSpace = colorSpace
-      self.httpClientDelegate = httpClientDelegate
+      self.requestModifier = requestModifier
     }
   }
 
@@ -120,7 +120,7 @@ public class ReactKit {
     factory.reactKitDelegate = factoryDelegate
 
     logger.info(
-      "[RNKit] Creating RCTRootViewFactory for key '\(key.id)'. Config: \(config.bundleUrl)")
+      "[RNKit] Creating RCTRootViewFactory for key '\(key.id)'.")
 
     let app = AppInstance(factory: factory, delegate: delegate, factoryDelegate: factoryDelegate)
 
@@ -271,14 +271,10 @@ class ReactKitFactoryDelegate: RCTDefaultReactNativeFactoryDelegate {
   let config: ReactKit.AppConfig
 
   init(withKey key: ReactKit.AppKey, withConfig config: ReactKit.AppConfig) {
-
-    logger.info(
-      "[RNKit] [ReactKitFactoryDelegate] Constructed ReactKitFactoryDelegate for key: \(key.id) with bundleUrl: \(config.bundleUrl)"
-    )
     self.key = key
     self.config = config
     super.init()
-    super.dependencyProvider = ReactKitAppDependencyProvider(config: config)
+    super.dependencyProvider = ReactKitAppDependencyProvider()
   }
 
   override func bundleURL() -> URL? {
@@ -302,9 +298,6 @@ class ReactKitFactoryDelegate: RCTDefaultReactNativeFactoryDelegate {
   }
 
   override func createJSRuntimeFactory() -> JSRuntimeFactoryRef {
-    logger.info(
-      "[RNKit] [ReactKitFactoryDelegate] Initialized hermes runtime factory for key: \(self.key.id)"
-    )
     return jsrt_create_hermes_factory()
   }
 
@@ -327,22 +320,10 @@ class ReactKitFactoryDelegate: RCTDefaultReactNativeFactoryDelegate {
 
 @objc(ReactKitAppDependencyProvider)
 class ReactKitAppDependencyProvider: RCTAppDependencyProvider {
-  let config: ReactKit.AppConfig
-
-  init(config: ReactKit.AppConfig) {
-    self.config = config
-    super.init()
-    logger.info(
-      "[RNKit] [ReactKitAppDependencyProvider] constructed. \(config.httpClientDelegate?.getAppHost() ?? "<null>") "
-    )
-  }
-
   override func urlRequestHandlerClassNames() -> [String] {
     let base = super.urlRequestHandlerClassNames()
-    let custom = TokenInjectorHttpRequestHandler.moduleName()
+    let custom = ReactKitRequestModifier.moduleName()
     let combined = [custom] + base
-    logger.info(
-      "[RNKit] [ReactKitAppDependencyProvider] URL handlers: \( combined.joined(separator: ", ") )")
     return combined
   }
 }
@@ -358,35 +339,29 @@ class AppFactoryDelegate: NSObject, ReactKitAppFactoryDelegate {
   }
 
   func getModuleInstance(from moduleClass: AnyClass) -> (any ReactKitTurboModule)? {
-    Logger.init().info(
-      "[RNKit] [AppFactoryDelegate] getModuleInstance called for key \(self.key.id) with class: \(String(describing: moduleClass))"
-    )
-    if moduleClass == TokenInjectorHttpRequestHandler.self, let del = config.httpClientDelegate {
-      Logger.init().info(
-        "[RNKit] [AppFactoryDelegate] constructing TokenInjectorHttpRequestHandler. for del with host: \(del.getAppHost())"
-      )
-      return TokenInjectorHttpRequestHandler(configDelegate: del)
+    if moduleClass == ReactKitRequestModifier.self, let modifierDelegate = config.requestModifier {
+      return ReactKitRequestModifier(modifierDelegate: modifierDelegate)
     }
     return nil
   }
 }
 
-public protocol HttpClientConfigurationDelegate {
-  func getAccessToken() -> String?
-  func getRefreshToken() -> String?
-  func getAppHost() -> String
+public protocol ReactKitRequestModifierDelegate {
+  func processRequest(_ request: URLRequest) -> URLRequest?
 }
 
-@objc(TokenInjectorHttpRequestHandler)
-class TokenInjectorHttpRequestHandler: RCTHTTPRequestHandler, ReactKitTurboModule {
-  let configDelegate: HttpClientConfigurationDelegate
+@objc(ReactKitRequestModifier)
+class ReactKitRequestModifier: RCTHTTPRequestHandler, ReactKitTurboModule {
+  var modifierDelegate: ReactKitRequestModifierDelegate?
 
-  init(configDelegate: HttpClientConfigurationDelegate) {
-    self.configDelegate = configDelegate
+  override init() {
+    self.modifierDelegate = nil
     super.init()
-    logger.info(
-      "[RNKit] [TokenInjectorHttpRequestHandler] constructed with delegate for: \(configDelegate.getAppHost())"
-    )
+  }
+
+  init(modifierDelegate: ReactKitRequestModifierDelegate) {
+    self.modifierDelegate = modifierDelegate
+    super.init()
   }
 
   override func handlerPriority() -> Float {
@@ -394,58 +369,12 @@ class TokenInjectorHttpRequestHandler: RCTHTTPRequestHandler, ReactKitTurboModul
   }
 
   override func send(_ request: URLRequest!, with delegate: (any RCTURLRequestDelegate)!) -> Any! {
-    logger.info(
-      "[RNKit] [TokenInjectorHttpRequestHandler] sending request to: \(String(describing: request?.url))"
-    )
-    guard var mutRequest = request else { return super.send(request, with: delegate) }
-
-    let isRelative = mutRequest.url?.host() == nil && mutRequest.url?.scheme == nil
-
-    if mutRequest.url?.host() == configDelegate.getAppHost() || isRelative {
-      logger.info(
-        "[RNKit] [TokenInjectorHttpRequestHandler] is a valid app api request: \(String(describing: mutRequest.url))"
-      )
-
-      // Attach auth header if present
-      var cookie = ""
-      if let accessToken = configDelegate.getAccessToken() {
-        logger.info(
-          "[RNKit] [TokenInjectorHttpRequestHandler] attaching access token to request: \(String(describing: mutRequest.url))"
-        )
-        cookie += "whop-core.access-token=\(accessToken);"
-      }
-
-      // Attach refresh header if present
-      if let refreshToken = configDelegate.getRefreshToken() {
-        logger.info(
-          "[RNKit] [TokenInjectorHttpRequestHandler] attaching refresh token to request: \(String(describing: mutRequest.url))"
-        )
-        cookie += "whop-core.refresh-token=\(refreshToken);"
-      }
-
-      if !cookie.isEmpty {
-        mutRequest.setValue(cookie, forHTTPHeaderField: "cookie")
-      }
-    }
-
-    if isRelative, let url = mutRequest.url {
-      let baseUrl = URL(string: "https://\(configDelegate.getAppHost())")
-      let newUrl = URL(string: url.relativeString, relativeTo: baseUrl)
-      logger.info(
-        "[RNKit] [TokenInjectorHttpRequestHandler] updating relative url to \(String(describing: newUrl))"
-      )
-      mutRequest.url = newUrl
-    }
-
-    mutRequest.setValue("hello_world_from_react_native", forHTTPHeaderField: "x-custom-rn-token")
-    return super.send(mutRequest, with: delegate)
+    guard let request else { return super.send(request, with: delegate) }
+    let updatedRequest = modifierDelegate?.processRequest(request) ?? request
+    return super.send(updatedRequest, with: delegate)
   }
 
-  // func getTurboModule(_ params: Any!) -> Any! {
-  //   self
-  // }
-
   override static func moduleName() -> String {
-    NSStringFromClass(TokenInjectorHttpRequestHandler.self)
+    NSStringFromClass(ReactKitRequestModifier.self)
   }
 }
