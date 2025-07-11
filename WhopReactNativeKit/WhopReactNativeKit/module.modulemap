@@ -1,0 +1,4 @@
+module ReactKitObjC {
+  umbrella header "WhopReactNativeKit.h"
+  export *
+}
