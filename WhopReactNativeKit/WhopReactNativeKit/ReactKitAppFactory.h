@@ -15,6 +15,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol NativeWhopCoreDelegate;
+
 @protocol ReactKitTurboModule <RCTTurboModule>
 @end
 
@@ -31,6 +33,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Optional delegate.  Weak to avoid retain cycles.
 @property(nonatomic, weak, nullable) id<ReactKitAppFactoryDelegate>
     reactKitDelegate;
+
+/// Optional delegate.  Weak to avoid retain cycles.
+@property(nonatomic, weak, nullable) id whopCoreDelegate;
 
 @end
 

@@ -11,8 +11,11 @@
 		CE1D00B82A5DB4C300C94550 /* React.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D00B72A5DB4C300C94550 /* React.swift */; };
 		CEF992E12BF2604800F0FFA4 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF992E02BF2604800F0FFA4 /* Logger.swift */; };
 		EC5583912E21642C002F26AD /* ReactKitAppFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = EC5583902E21642C002F26AD /* ReactKitAppFactory.h */; };
-		EC5583942E216470002F26AD /* ReactKitAppFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5583932E216470002F26AD /* ReactKitAppFactory.m */; };
+		EC5583942E216470002F26AD /* ReactKitAppFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = EC5583932E216470002F26AD /* ReactKitAppFactory.mm */; };
 		EC5583962E217217002F26AD /* WhopReactNativeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = EC5583952E217217002F26AD /* WhopReactNativeKit.h */; };
+		EC5D4A122E27140300C184ED /* NativeWhopCore.h in Headers */ = {isa = PBXBuildFile; fileRef = EC5D4A102E27140300C184ED /* NativeWhopCore.h */; };
+		EC5D4A132E27140300C184ED /* NativeWhopCore.mm in Sources */ = {isa = PBXBuildFile; fileRef = EC5D4A112E27140300C184ED /* NativeWhopCore.mm */; };
+		EC5D4A172E28415400C184ED /* NativeWhopCoreDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5D4A162E28414D00C184ED /* NativeWhopCoreDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,9 +26,12 @@
 		CEF992E02BF2604800F0FFA4 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		D80855B51FF4B4641FCFAB9D /* Pods-WhopReactNativeKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhopReactNativeKit.debug.xcconfig"; path = "Target Support Files/Pods-WhopReactNativeKit/Pods-WhopReactNativeKit.debug.xcconfig"; sourceTree = "<group>"; };
 		EC5583902E21642C002F26AD /* ReactKitAppFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReactKitAppFactory.h; sourceTree = "<group>"; };
-		EC5583932E216470002F26AD /* ReactKitAppFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReactKitAppFactory.m; sourceTree = "<group>"; };
+		EC5583932E216470002F26AD /* ReactKitAppFactory.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ReactKitAppFactory.mm; sourceTree = "<group>"; };
 		EC5583952E217217002F26AD /* WhopReactNativeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WhopReactNativeKit.h; sourceTree = "<group>"; };
 		EC5583972E21744B002F26AD /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		EC5D4A102E27140300C184ED /* NativeWhopCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NativeWhopCore.h; sourceTree = "<group>"; };
+		EC5D4A112E27140300C184ED /* NativeWhopCore.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NativeWhopCore.mm; sourceTree = "<group>"; };
+		EC5D4A162E28414D00C184ED /* NativeWhopCoreDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeWhopCoreDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,12 +84,15 @@
 		CE1D00AF2A5DB49400C94550 /* WhopReactNativeKit */ = {
 			isa = PBXGroup;
 			children = (
+				EC5D4A162E28414D00C184ED /* NativeWhopCoreDelegate.swift */,
 				EC5583972E21744B002F26AD /* module.modulemap */,
 				CE1D00B72A5DB4C300C94550 /* React.swift */,
 				CEF992E02BF2604800F0FFA4 /* Logger.swift */,
 				EC5583902E21642C002F26AD /* ReactKitAppFactory.h */,
-				EC5583932E216470002F26AD /* ReactKitAppFactory.m */,
+				EC5583932E216470002F26AD /* ReactKitAppFactory.mm */,
 				EC5583952E217217002F26AD /* WhopReactNativeKit.h */,
+				EC5D4A102E27140300C184ED /* NativeWhopCore.h */,
+				EC5D4A112E27140300C184ED /* NativeWhopCore.mm */,
 			);
 			path = WhopReactNativeKit;
 			sourceTree = "<group>";
@@ -97,6 +106,7 @@
 			files = (
 				EC5583962E217217002F26AD /* WhopReactNativeKit.h in Headers */,
 				EC5583912E21642C002F26AD /* ReactKitAppFactory.h in Headers */,
+				EC5D4A122E27140300C184ED /* NativeWhopCore.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,7 +205,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC5583942E216470002F26AD /* ReactKitAppFactory.m in Sources */,
+				EC5583942E216470002F26AD /* ReactKitAppFactory.mm in Sources */,
+				EC5D4A132E27140300C184ED /* NativeWhopCore.mm in Sources */,
+				EC5D4A172E28415400C184ED /* NativeWhopCoreDelegate.swift in Sources */,
 				CEF992E12BF2604800F0FFA4 /* Logger.swift in Sources */,
 				CE1D00B82A5DB4C300C94550 /* React.swift in Sources */,
 			);

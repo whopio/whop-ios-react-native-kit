@@ -34,17 +34,20 @@ public class ReactKit {
     public let customizeRootView: ((UIView) -> Void)?
     public let colorSpace: ColorSpace
     public let requestModifier: ReactKitRequestModifierDelegate?
+    public let whopCoreDelegate: (any NativeWhopCoreDelegate)?
 
     public init(
       bundleUrl: URL,
       customiseRootView: ((UIView) -> Void)? = nil,
       colorSpace: ColorSpace = .srgb,
-      requestModifier: ReactKitRequestModifierDelegate? = nil
+      requestModifier: ReactKitRequestModifierDelegate? = nil,
+      whopCoreDelegate: (any NativeWhopCoreDelegate)? = nil
     ) {
       self.bundleUrl = bundleUrl
       self.customizeRootView = customiseRootView
       self.colorSpace = colorSpace
       self.requestModifier = requestModifier
+      self.whopCoreDelegate = whopCoreDelegate
     }
   }
 
@@ -118,6 +121,7 @@ public class ReactKit {
     let factory = ReactKitAppFactory(delegate: delegate, releaseLevel: .Stable)
     let factoryDelegate = AppFactoryDelegate(config: config, key: key)
     factory.reactKitDelegate = factoryDelegate
+    factory.whopCoreDelegate = config.whopCoreDelegate
 
     logger.info(
       "[RNKit] Creating RCTRootViewFactory for key '\(key.id)'.")

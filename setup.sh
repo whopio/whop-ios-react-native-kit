@@ -24,6 +24,8 @@ cd $root
 rm -rf ./react-native/WhopReactNativeKit/ios/*
 cp -r ./WhopReactNativeKit/* ./react-native/WhopReactNativeKit/ios/
 
+node ./prepare-custom-modules.js
+
 cd ./react-native/WhopReactNativeKit/ios
 pod install
 ./build.sh
