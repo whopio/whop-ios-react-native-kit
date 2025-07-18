@@ -9,6 +9,10 @@ mkdir -p ./react-native
 cd ./react-native
 npx @react-native-community/cli init WhopReactNativeKit --version 0.80.0 --skip-git-init --install-pods false
 cd ./WhopReactNativeKit
+npm install \
+  react-native-nitro-modules@0.26.3 \
+  react-native-video@6.16.1 \
+  --save-exact
 # npm install \
 #     react-native-safe-area-context@5.4.1 \
 #     react-native-haptic-feedback@2.3.3 \
