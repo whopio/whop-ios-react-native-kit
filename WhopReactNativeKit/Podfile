@@ -97,9 +97,7 @@ target 'WhopReactNativeKit' do
       "ReactNativeVideo",
       "react_native_video",
       "react-native-video",
-      "react-native-fast-image",
-      "ReactNativeFastImage",
-      "react_native_fast_image"
+      "RNFastImage"
     ]
     
     installer.pods_project.targets.each do |target|
@@ -135,7 +133,7 @@ target 'WhopReactNativeKit' do
     installer.pods_project.targets.each do |t|
       puts "t.name: #{t.name}"
 
-      next unless t.name == 'NitroModules' || t.name == 'ReactNativeVideo' || t.name == 'react_native_video' || t.name == 'react-native-video'
+      next unless targets_to_skip_verification.include?(t.name)
   
       t.build_configurations.each do |c|
 

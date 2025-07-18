@@ -12,7 +12,7 @@ cd ./WhopReactNativeKit
 npm install \
   react-native-nitro-modules@0.26.3 \
   react-native-video@6.16.1 \
-  react-native-fast-image@8.6.3 \
+  @d11/react-native-fast-image@8.10.0 \
   --legacy-peer-deps --save-exact
 # npm install \
 #     react-native-safe-area-context@5.4.1 \
@@ -26,6 +26,10 @@ npm install \
 #     @react-native-async-storage/async-storage@2.2.0 --save-exact
 
 cd $root
+
+# apply patches to npm installs:
+cp ./patches/RNFastImage.podspec ./react-native/WhopReactNativeKit/node_modules/@d11/react-native-fast-image/RNFastImage.podspec
+
 rm -rf ./react-native/WhopReactNativeKit/ios/*
 cp -r ./WhopReactNativeKit/* ./react-native/WhopReactNativeKit/ios/
 
