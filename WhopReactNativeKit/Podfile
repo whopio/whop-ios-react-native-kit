@@ -96,7 +96,10 @@ target 'WhopReactNativeKit' do
       "NitroModules",
       "ReactNativeVideo",
       "react_native_video",
-      "react-native-video"
+      "react-native-video",
+      "react-native-fast-image",
+      "ReactNativeFastImage",
+      "react_native_fast_image"
     ]
     
     installer.pods_project.targets.each do |target|

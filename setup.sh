@@ -12,7 +12,8 @@ cd ./WhopReactNativeKit
 npm install \
   react-native-nitro-modules@0.26.3 \
   react-native-video@6.16.1 \
-  --save-exact
+  react-native-fast-image@8.6.3 \
+  --legacy-peer-deps --save-exact
 # npm install \
 #     react-native-safe-area-context@5.4.1 \
 #     react-native-haptic-feedback@2.3.3 \
