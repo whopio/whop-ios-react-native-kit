@@ -15,6 +15,9 @@ npm install \
   @d11/react-native-fast-image@8.10.0 \
   react-native-svg@15.12.0 \
   react-native-webview@13.15.0 \
+  react-native-reanimated@3.18.0 \
+  react-native-gesture-handler@2.27.2 \
+  react-native-haptic-feedback@2.3.3 \
   --legacy-peer-deps --save-exact
 # npm install \
 #     react-native-safe-area-context@5.4.1 \
