@@ -97,6 +97,7 @@ target 'WhopReactNativeKit' do
       "ReactNativeVideo",
       "react_native_video",
       "react-native-video",
+      "VisionCamera",
       "RNFastImage"
     ]
     

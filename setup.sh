@@ -18,6 +18,8 @@ npm install \
   react-native-reanimated@3.18.0 \
   react-native-gesture-handler@2.27.2 \
   react-native-haptic-feedback@2.3.3 \
+  react-native-vision-camera@4.7.1 \
+  react-native-safe-area-context@5.5.2 \
   --legacy-peer-deps --save-exact
 # npm install \
 #     react-native-safe-area-context@5.4.1 \

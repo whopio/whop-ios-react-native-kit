@@ -136,6 +136,10 @@ public class ReactKit {
     return apps[key] != nil
   }
 
+  public func getConfig(forKey key: AppKey) -> AppConfig? {
+    return apps[key]?.delegate.config
+  }
+
   /// Ensure that a factory is pre-created.
   /// If a factory already exists, this function does nothing.
   public func createFactory(forKey key: AppKey, withConfig config: AppConfig) {
