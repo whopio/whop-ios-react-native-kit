@@ -1,0 +1,250 @@
+{
+    "formatVersion": "1.1",
+    "component": {
+        "group": "com.whoprnkit",
+        "module": "whopreactnativekit",
+        "version": "0.0.1",
+        "attributes": {
+            "org.gradle.status": "release"
+        }
+    },
+    "createdBy": {
+        "gradle": {
+            "version": "8.14.1"
+        }
+    },
+    "variants": [
+        {
+            "name": "debugVariantDefaultApiPublication",
+            "attributes": {
+                "com.android.build.api.attributes.BuildTypeAttr": "debug",
+                "org.gradle.category": "library",
+                "org.gradle.dependency.bundling": "external",
+                "org.gradle.libraryelements": "aar",
+                "org.gradle.usage": "java-api"
+            },
+            "dependencies": [
+                {
+                    "group": "com.facebook.react",
+                    "module": "react-android",
+                    "version": {
+                        "requires": "0.80.0"
+                    }
+                },
+                {
+                    "group": "com.facebook.react",
+                    "module": "hermes-android",
+                    "version": {
+                        "requires": "0.80.0"
+                    }
+                },
+                {
+                    "group": "org.jetbrains.kotlin",
+                    "module": "kotlin-stdlib",
+                    "version": {
+                        "requires": "2.1.20"
+                    }
+                }
+            ],
+            "files": [
+                {
+                    "name": "whopreactnativekit-0.0.1-debug.aar",
+                    "url": "whopreactnativekit-0.0.1-debug.aar",
+                    "size": 44945356,
+                    "sha512": "b912583a49fc2aacb50bec6d4d3921979181fa291259ba5626328fe3236d546f9ba8ce99550f29d2b864f0dcbe1c4384533a2fb793d5b901755fc4d716f28df7",
+                    "sha256": "014abe3ce02bb8654a90a0202f08f8086dd753eb730e526d5f7c6c3b188df98b",
+                    "sha1": "c95f11bf4bdd2f621257388368dd8caa3b19823e",
+                    "md5": "f28fcce533aa283b2ec40de27d730e17"
+                }
+            ]
+        },
+        {
+            "name": "debugVariantDefaultRuntimePublication",
+            "attributes": {
+                "com.android.build.api.attributes.BuildTypeAttr": "debug",
+                "org.gradle.category": "library",
+                "org.gradle.dependency.bundling": "external",
+                "org.gradle.libraryelements": "aar",
+                "org.gradle.usage": "java-runtime"
+            },
+            "dependencies": [
+                {
+                    "group": "androidx.appcompat",
+                    "module": "appcompat",
+                    "version": {
+                        "requires": "1.7.0"
+                    }
+                },
+                {
+                    "group": "com.facebook.react",
+                    "module": "react-android",
+                    "version": {
+                        "requires": "0.80.0"
+                    }
+                },
+                {
+                    "group": "com.facebook.react",
+                    "module": "hermes-android",
+                    "version": {
+                        "requires": "0.80.0"
+                    }
+                },
+                {
+                    "group": "org.jetbrains.kotlin",
+                    "module": "kotlin-stdlib",
+                    "version": {
+                        "requires": "2.1.20"
+                    }
+                }
+            ],
+            "files": [
+                {
+                    "name": "whopreactnativekit-0.0.1-debug.aar",
+                    "url": "whopreactnativekit-0.0.1-debug.aar",
+                    "size": 44945356,
+                    "sha512": "b912583a49fc2aacb50bec6d4d3921979181fa291259ba5626328fe3236d546f9ba8ce99550f29d2b864f0dcbe1c4384533a2fb793d5b901755fc4d716f28df7",
+                    "sha256": "014abe3ce02bb8654a90a0202f08f8086dd753eb730e526d5f7c6c3b188df98b",
+                    "sha1": "c95f11bf4bdd2f621257388368dd8caa3b19823e",
+                    "md5": "f28fcce533aa283b2ec40de27d730e17"
+                }
+            ]
+        },
+        {
+            "name": "debugVariantDefaultSourcePublication",
+            "attributes": {
+                "com.android.build.api.attributes.BuildTypeAttr": "debug",
+                "org.gradle.category": "documentation",
+                "org.gradle.dependency.bundling": "external",
+                "org.gradle.docstype": "sources",
+                "org.gradle.usage": "java-runtime"
+            },
+            "files": [
+                {
+                    "name": "whopreactnativekit-0.0.1-debug-sources.jar",
+                    "url": "whopreactnativekit-0.0.1-debug-sources.jar",
+                    "size": 4660,
+                    "sha512": "d1907a2c30c664513a03f17eb4d97a6361c2142a94e11b4d8dd34d3973c1fddaa7b900c7fba2135fafd0db670f3e796045216e6701dcc2b77eb49965d1563dae",
+                    "sha256": "00c621ff977bc7a55f4b400125622d2e6e3bdbb11758404726ccc22b700b16f8",
+                    "sha1": "804d03fb2ca11517076e42652d24a6942a44a21e",
+                    "md5": "c35b4f87b92e5f9c7e032c1dffdc8046"
+                }
+            ]
+        },
+        {
+            "name": "releaseVariantDefaultApiPublication",
+            "attributes": {
+                "com.android.build.api.attributes.BuildTypeAttr": "release",
+                "org.gradle.category": "library",
+                "org.gradle.dependency.bundling": "external",
+                "org.gradle.libraryelements": "aar",
+                "org.gradle.usage": "java-api"
+            },
+            "dependencies": [
+                {
+                    "group": "com.facebook.react",
+                    "module": "react-android",
+                    "version": {
+                        "requires": "0.80.0"
+                    }
+                },
+                {
+                    "group": "com.facebook.react",
+                    "module": "hermes-android",
+                    "version": {
+                        "requires": "0.80.0"
+                    }
+                },
+                {
+                    "group": "org.jetbrains.kotlin",
+                    "module": "kotlin-stdlib",
+                    "version": {
+                        "requires": "2.1.20"
+                    }
+                }
+            ],
+            "files": [
+                {
+                    "name": "whopreactnativekit-0.0.1-release.aar",
+                    "url": "whopreactnativekit-0.0.1-release.aar",
+                    "size": 6647063,
+                    "sha512": "539941b2915b059fb86faa4880718fb7a2415a9c9a205cbc7186207d4a22220a6444aa8746ef89e061dfcd619bb1ad54e043dbbfc3d07c59a52785b6f15071dc",
+                    "sha256": "1870367fee82d7e97d6834d255674faa5627a5b0a35231088f9aa7c2b2889f00",
+                    "sha1": "aedf8d4d9696ce5dcae5017e06ef248a1ce479b8",
+                    "md5": "022a4ec425e50e18fef7c31ded29aba7"
+                }
+            ]
+        },
+        {
+            "name": "releaseVariantDefaultRuntimePublication",
+            "attributes": {
+                "com.android.build.api.attributes.BuildTypeAttr": "release",
+                "org.gradle.category": "library",
+                "org.gradle.dependency.bundling": "external",
+                "org.gradle.libraryelements": "aar",
+                "org.gradle.usage": "java-runtime"
+            },
+            "dependencies": [
+                {
+                    "group": "androidx.appcompat",
+                    "module": "appcompat",
+                    "version": {
+                        "requires": "1.7.0"
+                    }
+                },
+                {
+                    "group": "com.facebook.react",
+                    "module": "react-android",
+                    "version": {
+                        "requires": "0.80.0"
+                    }
+                },
+                {
+                    "group": "com.facebook.react",
+                    "module": "hermes-android",
+                    "version": {
+                        "requires": "0.80.0"
+                    }
+                },
+                {
+                    "group": "org.jetbrains.kotlin",
+                    "module": "kotlin-stdlib",
+                    "version": {
+                        "requires": "2.1.20"
+                    }
+                }
+            ],
+            "files": [
+                {
+                    "name": "whopreactnativekit-0.0.1-release.aar",
+                    "url": "whopreactnativekit-0.0.1-release.aar",
+                    "size": 6647063,
+                    "sha512": "539941b2915b059fb86faa4880718fb7a2415a9c9a205cbc7186207d4a22220a6444aa8746ef89e061dfcd619bb1ad54e043dbbfc3d07c59a52785b6f15071dc",
+                    "sha256": "1870367fee82d7e97d6834d255674faa5627a5b0a35231088f9aa7c2b2889f00",
+                    "sha1": "aedf8d4d9696ce5dcae5017e06ef248a1ce479b8",
+                    "md5": "022a4ec425e50e18fef7c31ded29aba7"
+                }
+            ]
+        },
+        {
+            "name": "releaseVariantDefaultSourcePublication",
+            "attributes": {
+                "com.android.build.api.attributes.BuildTypeAttr": "release",
+                "org.gradle.category": "documentation",
+                "org.gradle.dependency.bundling": "external",
+                "org.gradle.docstype": "sources",
+                "org.gradle.usage": "java-runtime"
+            },
+            "files": [
+                {
+                    "name": "whopreactnativekit-0.0.1-release-sources.jar",
+                    "url": "whopreactnativekit-0.0.1-release-sources.jar",
+                    "size": 4648,
+                    "sha512": "e40ad0e907dbe22b3e3c1bf4cd664df97d19a21ae9e1480542702cdae0f871a765e9dae094e458291f7328d347ca7b343f3f3a5fb8450798906609b26dd9decf",
+                    "sha256": "9cf9cad06669c251dda30cef9998e4f46631065b9353bbd28ae4fbf88cb77fdc",
+                    "sha1": "fc22db5a2e682fe951378c507c1e53f817ff361f",
+                    "md5": "1802171a035d52a1b83b77aadf36184d"
+                }
+            ]
+        }
+    ]
+}
