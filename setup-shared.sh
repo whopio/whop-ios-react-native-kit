@@ -20,16 +20,8 @@ npm install \
   react-native-haptic-feedback@2.3.3 \
   react-native-vision-camera@4.7.1 \
   react-native-safe-area-context@5.5.2 \
+  lottie-react-native@7.3.2 \
   --legacy-peer-deps --save-exact
-# npm install \
-#     react-native-safe-area-context@5.4.1 \
-#     react-native-haptic-feedback@2.3.3 \
-#     react-native-gesture-handler@2.26.0 \
-#     react-native-reanimated@3.18.0 \
-#     @react-native-picker/picker@2.11.0 \
-#     react-native-svg@15.12.0 \
-#     @react-native-camera-roll/camera-roll@7.10.0 \
-#     react-native-sensors@7.3.6 \
-#     @react-native-async-storage/async-storage@2.2.0 --save-exact
 
 cd $root
+

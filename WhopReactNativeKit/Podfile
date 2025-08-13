@@ -98,7 +98,11 @@ target 'WhopReactNativeKit' do
       "react_native_video",
       "react-native-video",
       "VisionCamera",
-      "RNFastImage"
+      "RNFastImage",
+      "Lottie",
+      "lottie-ios",
+      "lottie_react_native",
+      "lottie-react-native"
     ]
     
     installer.pods_project.targets.each do |target|
