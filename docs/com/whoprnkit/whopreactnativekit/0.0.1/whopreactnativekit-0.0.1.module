@@ -50,11 +50,11 @@
                 {
                     "name": "whopreactnativekit-0.0.1-debug.aar",
                     "url": "whopreactnativekit-0.0.1-debug.aar",
-                    "size": 45172674,
-                    "sha512": "1a770b62b88fa52d31f6ab65e0f608e499ab7678e56f5189485b965a726ad291f862ea7a4fdda643c09e484746259bfc2dc06a4216ab30aa37f4e25c03645a62",
-                    "sha256": "2054475d3126ec52508cd3423f65009ffdb334cf0d81375355e09112a50436f7",
-                    "sha1": "9fa45501e7f3539a2d12864b26ff6595c91ec865",
-                    "md5": "1e26616c0f5baf2a8a3382fb171e97c6"
+                    "size": 45208011,
+                    "sha512": "fa154089bf71cd37fe04b29de0ad8367830525e7e8757d8cf46f71e5744436eb09a8c6272a1c825cf7d0328843d41928d0cbe9d6181c8765e2fd15303c47cae6",
+                    "sha256": "78b42288adad0c8bdbc3e651f066ff19afe4cab89a19238c92e30ec4d6a13a3c",
+                    "sha1": "4745869eeda867814c09a3c6d7983afe24c4b880",
+                    "md5": "210aaabd418911b18a4f9b7bfa497c66"
                 }
             ]
         },
@@ -101,11 +101,11 @@
                 {
                     "name": "whopreactnativekit-0.0.1-debug.aar",
                     "url": "whopreactnativekit-0.0.1-debug.aar",
-                    "size": 45172674,
-                    "sha512": "1a770b62b88fa52d31f6ab65e0f608e499ab7678e56f5189485b965a726ad291f862ea7a4fdda643c09e484746259bfc2dc06a4216ab30aa37f4e25c03645a62",
-                    "sha256": "2054475d3126ec52508cd3423f65009ffdb334cf0d81375355e09112a50436f7",
-                    "sha1": "9fa45501e7f3539a2d12864b26ff6595c91ec865",
-                    "md5": "1e26616c0f5baf2a8a3382fb171e97c6"
+                    "size": 45208011,
+                    "sha512": "fa154089bf71cd37fe04b29de0ad8367830525e7e8757d8cf46f71e5744436eb09a8c6272a1c825cf7d0328843d41928d0cbe9d6181c8765e2fd15303c47cae6",
+                    "sha256": "78b42288adad0c8bdbc3e651f066ff19afe4cab89a19238c92e30ec4d6a13a3c",
+                    "sha1": "4745869eeda867814c09a3c6d7983afe24c4b880",
+                    "md5": "210aaabd418911b18a4f9b7bfa497c66"
                 }
             ]
         },
@@ -122,11 +122,11 @@
                 {
                     "name": "whopreactnativekit-0.0.1-debug-sources.jar",
                     "url": "whopreactnativekit-0.0.1-debug-sources.jar",
-                    "size": 4688,
-                    "sha512": "fb7cf39b0ca33b16125a0e25ba42b16e204088f1e493627a77e30aff209c560c4037ade7c2902eadf2d19f3e1057efd9b6039394162b919fde90cfdcdd2ea7af",
-                    "sha256": "16cf58b43e20a370fc562d79e498b2b87d16130630e6bc5f5c258d5cdcd38afd",
-                    "sha1": "b758507d7daac1bf02058a1120709902553a6c5f",
-                    "md5": "87ced7c39f95579cd8fdd83dd2e3c9fb"
+                    "size": 4710,
+                    "sha512": "800e65b4ad5078dfdef3675495946bc68375ff6d5e1a16b4dc995e16bd3e954b5eb9c20e18f5978f5f99bce2ad5d52889a6141a5c800adfd10efc3eaafbb9221",
+                    "sha256": "e89d94dd8c70373a7811aac2af68b5e375c2e83c1a6e5ce774ce3ba48b1340b8",
+                    "sha1": "e4eb1d1197849df77979969e0c48502de961d0f2",
+                    "md5": "4b1bfeba9883f60152f17588f6dcd956"
                 }
             ]
         },
@@ -166,11 +166,11 @@
                 {
                     "name": "whopreactnativekit-0.0.1-release.aar",
                     "url": "whopreactnativekit-0.0.1-release.aar",
-                    "size": 6741227,
-                    "sha512": "e9e26ff76db242c1fb2a57fc2843b04b4add0161877cb1da5e11ca529f24da399c8f98e5126a80bcd64d2b7f0a5414acd569b02ac85e491b214e5f7ca1880e4a",
-                    "sha256": "af1d19829585a025c21f051d79c2c11f5b0970167d7e3df738acd042f6c51d72",
-                    "sha1": "00abe402332b4f9e638591e1cc9a1c73315ae3b8",
-                    "md5": "083f7c126bee0a949a5ebe43f9f208f3"
+                    "size": 6773398,
+                    "sha512": "e1ada55ea87cd264f9bf07879e2526270f9e43f189b0b32e99acb1291c6aaea3b10eb770be5d2dc0d8221621950ecb29586d8eb17fcae5fca06e11523325cb52",
+                    "sha256": "143f8ed6f5af6c1f4f2063602734b47b04e7685a169c2d311fffae3b20742496",
+                    "sha1": "7dea423c5d7cebab82bf748832b558811044f5a2",
+                    "md5": "247a31ff9265434f70da364e8d5aca4b"
                 }
             ]
         },
@@ -217,11 +217,11 @@
                 {
                     "name": "whopreactnativekit-0.0.1-release.aar",
                     "url": "whopreactnativekit-0.0.1-release.aar",
-                    "size": 6741227,
-                    "sha512": "e9e26ff76db242c1fb2a57fc2843b04b4add0161877cb1da5e11ca529f24da399c8f98e5126a80bcd64d2b7f0a5414acd569b02ac85e491b214e5f7ca1880e4a",
-                    "sha256": "af1d19829585a025c21f051d79c2c11f5b0970167d7e3df738acd042f6c51d72",
-                    "sha1": "00abe402332b4f9e638591e1cc9a1c73315ae3b8",
-                    "md5": "083f7c126bee0a949a5ebe43f9f208f3"
+                    "size": 6773398,
+                    "sha512": "e1ada55ea87cd264f9bf07879e2526270f9e43f189b0b32e99acb1291c6aaea3b10eb770be5d2dc0d8221621950ecb29586d8eb17fcae5fca06e11523325cb52",
+                    "sha256": "143f8ed6f5af6c1f4f2063602734b47b04e7685a169c2d311fffae3b20742496",
+                    "sha1": "7dea423c5d7cebab82bf748832b558811044f5a2",
+                    "md5": "247a31ff9265434f70da364e8d5aca4b"
                 }
             ]
         },
@@ -238,11 +238,11 @@
                 {
                     "name": "whopreactnativekit-0.0.1-release-sources.jar",
                     "url": "whopreactnativekit-0.0.1-release-sources.jar",
-                    "size": 4676,
-                    "sha512": "3bf7c6a5ab2b149f9e8b688453c50d047ee85793ccf76935abb71806d4e764431fd9838669c24bbd1f225b94e7d1b3aafd01454642f7279c51ad14240c53e93c",
-                    "sha256": "bc6a3365ee1b291610dc69dfd64d0eba926a2638ccd4ae4e10b23495cee34c8e",
-                    "sha1": "ba762b20929b88c9e42071170c4ed48eaf643fae",
-                    "md5": "1f581e01e23d8727c8722312ec41bce7"
+                    "size": 4698,
+                    "sha512": "b5aaa4128a8b615ad590ea246674ad270280d7f2cd8fc8f1f35a1dd8d0ac7cf126c474db07bf3d443d0e3308667d7fd96ac4d58f932dd564bb33f2d8befee939",
+                    "sha256": "a51b6ec2c473dd729317640c034188563ea32146ffd3daf9e29fb6e0f30307b4",
+                    "sha1": "248f7c514d88b4a0c039dfdf57ab7c80212dec35",
+                    "md5": "8dad3fef67611be2158f9a054c26ee96"
                 }
             ]
         }
