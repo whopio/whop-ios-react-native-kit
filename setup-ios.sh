@@ -2,6 +2,7 @@
 set -e 
 
 bash ./setup-shared.sh
+root=$(pwd)
 
 # apply patches to npm installs:
 cp ./patches/RNFastImage.podspec ./react-native/WhopReactNativeKit/node_modules/@d11/react-native-fast-image/RNFastImage.podspec

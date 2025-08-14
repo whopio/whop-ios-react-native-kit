@@ -21,6 +21,7 @@ npm install \
   react-native-vision-camera@4.7.1 \
   react-native-safe-area-context@5.5.2 \
   lottie-react-native@7.3.2 \
+  react-native-image-picker@8.2.1 \
   --legacy-peer-deps --save-exact
 
 cd $root
