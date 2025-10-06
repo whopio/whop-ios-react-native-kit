@@ -7,11 +7,11 @@ root=$(pwd)
 rm -rf ./react-native
 mkdir -p ./react-native
 cd ./react-native
-npx @react-native-community/cli init WhopReactNativeKit --version 0.80.0 --skip-git-init --install-pods false
+npx @react-native-community/cli@19.0.0 init WhopReactNativeKit --version 0.80.0 --skip-git-init --install-pods false
 cd ./WhopReactNativeKit
 npm install \
   react-native-nitro-modules@0.26.3 \
-  react-native-video@6.16.1 \
+  react-native-video@6.10.2 \
   @d11/react-native-fast-image@8.10.0 \
   react-native-svg@15.12.0 \
   react-native-webview@13.15.0 \

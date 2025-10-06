@@ -44,7 +44,45 @@ async function main() {
 async function downloadFileToFilepath(url, filepath) {
 	const response = await fetch(url);
 	const data = await response.text();
-	fs.writeFileSync(filepath, data);
+	fs.writeFileSync(filepath, rewriteFileData(data));
+}
+
+function rewriteFileData(data) {
+	const file = `
+import type { TurboModule } from "react-native";
+import { TurboModuleRegistry } from "react-native";
+
+export type FunctionCallResult = {
+	isOk: boolean;
+	data: string | null;
+	errorMessage: string | null;
+};
+
+export interface Spec extends TurboModule {
+	execSync(name: string, paramsJson: string): FunctionCallResult;
+	execAsync(name: string, paramsJson: string): Promise<FunctionCallResult>;
+}
+
+export const NativeWhopCore = TurboModuleRegistry.getEnforcing<Spec>("NativeWhopCore");
+`;
+
+	const specRegex = /export interface Spec extends TurboModule [^}]*}/gs;
+
+	const specDef = data.match(specRegex);
+	const fileDef = file.match(specRegex);
+
+	if (!specDef || !fileDef) {
+		throw new Error("Failed to find spec definition in source file");
+	}
+
+	const specDefString = specDef[0];
+	const fileDefString = fileDef[0];
+
+	if (specDefString !== fileDefString) {
+		throw new Error("Spec definition mismatch");
+	}
+
+	return file;
 }
 
 main()
