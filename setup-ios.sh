@@ -22,7 +22,8 @@ cd output
 # ditto -c -k --sequesterRsrc --keepParent "WhopReactNativeKit-Debug.xcframework" "WhopReactNativeKit-Debug.xcframework.zip"
 ditto -c -k --sequesterRsrc --keepParent "WhopReactNativeKit-Release.xcframework" "WhopReactNativeKit-Release.xcframework.zip"
 # ditto -c -k --sequesterRsrc --keepParent "hermes.xcframework" "hermes.xcframework.zip" 
-# using a externally downloaded hermes.xcframework.zip directly from the github action that published 0.80.0 in the facebook/react-native repo. 
+# using a externally downloaded hermes.xcframework.zip directly from the github action that published 0.81.5 in the facebook/react-native repo.
+# (https://github.com/facebook/react-native/actions/runs/18690397108/#artifacts) 
 # This MUST be the release version of the darwin-hermes-RELEASE. Then find the universal xcframework in the Library/Frameworks... 
 # and then run this ditto command and copy the zip to the root of this project.
 
